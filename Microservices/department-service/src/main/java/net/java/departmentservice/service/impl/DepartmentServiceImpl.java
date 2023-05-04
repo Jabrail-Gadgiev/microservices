@@ -3,11 +3,13 @@ package net.java.departmentservice.service.impl;
 import lombok.AllArgsConstructor;
 import net.java.departmentservice.dto.DepartmentDto;
 import net.java.departmentservice.entity.Department;
+import net.java.departmentservice.exception.ResourceNotFoundException;
 import net.java.departmentservice.repository.DepartmentRepository;
 import net.java.departmentservice.service.DepartmentService;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -42,7 +44,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDto getDepartmentByCode(String departmentCode) {
-        Department department = departmentRepository.findByDepartmentCode(departmentCode);
+        Department department = departmentRepository.findByDepartmentCode(departmentCode).orElseThrow(
+                () -> new ResourceNotFoundException("Department", "Code", departmentCode)
+        );
 //        DepartmentDto departmentDto = new DepartmentDto(
 //                department.getId(),
 //                department.getDepartmentName(),
