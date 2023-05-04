@@ -3,6 +3,7 @@ package net.java.employeeservice.service.impl;
 import lombok.AllArgsConstructor;
 import net.java.employeeservice.dto.EmployeeDto;
 import net.java.employeeservice.entity.Employee;
+import net.java.employeeservice.exception.ResourceNotFoundException;
 import net.java.employeeservice.repository.EmployeeRepository;
 import net.java.employeeservice.service.EmployeeService;
 import org.modelmapper.ModelMapper;
@@ -35,7 +36,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).get();
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", employeeId)
+        );
 
 //        EmployeeDto employeeDto = new EmployeeDto(
 //                employee.getId(),
