@@ -1,6 +1,7 @@
 package net.java.employeeservice.controller;
 
 import lombok.AllArgsConstructor;
+import net.java.employeeservice.dto.APIResponseDto;
 import net.java.employeeservice.dto.EmployeeDto;
 import net.java.employeeservice.exception.ErrorDetails;
 import net.java.employeeservice.exception.ResourceNotFoundException;
@@ -27,8 +28,8 @@ public class EmployeeController {
 
     // Build Get Employee REST API
     @GetMapping("{id}")
-    public ResponseEntity<EmployeeDto> getEmployee(@PathVariable("id") Long employeeId) {
-        EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
-        return new ResponseEntity<>(employeeDto, HttpStatus.OK);
+    public ResponseEntity<APIResponseDto> getEmployee(@PathVariable("id") Long employeeId) {
+        APIResponseDto apiResponseDto = employeeService.getEmployeeById(employeeId);
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
 }
