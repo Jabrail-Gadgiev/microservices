@@ -13,4 +13,5 @@ import net.java.employeeservice.entity.Employee;
 public class APIResponseDto {
     private Employee employee;
     private DepartmentDto department;
+    private OrganizationDto organization;
 }
